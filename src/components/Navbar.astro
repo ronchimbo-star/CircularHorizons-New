@@ -1,0 +1,79 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="bg-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-20">
+      <div class="flex items-center">
+        <a href="/" class="flex-shrink-0 flex items-center">
+          <svg class="h-8 w-8 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7v10c0 5.5 4.5 10 10 10s10-4.5 10-10V7L12 2z M12 22V2"></path>
+          </svg>
+          <span class="text-xl font-bold text-gray-900">Circular Horizons</span>
+        </a>
+        <div class="hidden md:ml-10 md:flex md:space-x-8">
+          <a href="#consultancy" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+            Consultancy
+          </a>
+          <a href="#green-registry" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+            Green Registry
+          </a>
+          <a href="#esg-report" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+            ESG Report
+          </a>
+          <a href="#mizan-esg" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 border-transparent hover:border-gray-300 text-sm font-medium">
+            Mizan ESG
+          </a>
+          <a href="/news" class={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${currentPath.startsWith('/news') ? 'border-primary text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300'}`}>
+            News
+          </a>
+        </div>
+      </div>
+      <div class="hidden md:ml-6 md:flex md:items-center">
+        <a href="/contact" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium">
+          Contact Us
+        </a>
+      </div>
+      <div class="md:hidden flex items-center">
+        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+      <a href="#consultancy" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-900">
+        Consultancy
+      </a>
+      <a href="#green-registry" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-900">
+        Green Registry
+      </a>
+      <a href="#esg-report" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-900">
+        ESG Report
+      </a>
+      <a href="#mizan-esg" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-900">
+        Mizan ESG
+      </a>
+      <a href="/news" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-900">
+        News
+      </a>
+      <a href="/contact" class="block px-3 py-2 text-base font-medium text-primary hover:text-primary/80">
+        Contact Us
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+</script>
