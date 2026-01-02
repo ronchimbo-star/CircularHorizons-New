@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
+import DynamicNavbar from '../components/DynamicNavbar.astro';
+import DynamicFooter from '../components/DynamicFooter.astro';
 
 interface Props {
   title: string;
@@ -22,10 +22,10 @@ const { title, description = 'Pioneering sustainable solutions for a circular ec
     <title>{title}</title>
   </head>
   <body class="min-h-screen flex flex-col">
-    <Navbar />
+    <DynamicNavbar />
     <main class="flex-1">
       <slot />
     </main>
-    <Footer />
+    <DynamicFooter />
   </body>
 </html>

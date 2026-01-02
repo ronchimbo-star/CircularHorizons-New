@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+export const prerender = false;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} - Admin</title>
+  </head>
+  <body class="bg-gray-100">
+    <div class="min-h-screen flex">
+      <aside class="w-64 bg-gray-900 text-white flex-shrink-0">
+        <div class="p-4">
+          <h1 class="text-xl font-bold">CMS Admin</h1>
+        </div>
+        <nav class="mt-8">
+          <a href="/admin/dashboard" class="block px-4 py-2 hover:bg-gray-800">
+            Dashboard
+          </a>
+          <a href="/admin/settings" class="block px-4 py-2 hover:bg-gray-800">
+            Site Settings
+          </a>
+          <a href="/admin/pages" class="block px-4 py-2 hover:bg-gray-800">
+            Pages
+          </a>
+          <a href="/admin/news" class="block px-4 py-2 hover:bg-gray-800">
+            News Articles
+          </a>
+          <a href="/admin/media" class="block px-4 py-2 hover:bg-gray-800">
+            Media Library
+          </a>
+          <a href="/admin/contacts" class="block px-4 py-2 hover:bg-gray-800">
+            Contact Forms
+          </a>
+          <a href="/" class="block px-4 py-2 hover:bg-gray-800 mt-8 border-t border-gray-700 pt-4">
+            View Site
+          </a>
+          <button id="logout-btn" class="block w-full text-left px-4 py-2 hover:bg-gray-800 text-red-400">
+            Logout
+          </button>
+        </nav>
+      </aside>
+      <main class="flex-1 p-8">
+        <slot />
+      </main>
+    </div>
+    <script>
+      import { supabase } from '../lib/supabase';
+
+      document.getElementById('logout-btn')?.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = '/admin/login';
+      });
+
+      async function checkAuth() {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session && !window.location.pathname.includes('/admin/login')) {
+          window.location.href = '/admin/login';
+        }
+      }
+
+      checkAuth();
+    </script>
+  </body>
+</html>
