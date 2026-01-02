@@ -1,0 +1,82 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+export const prerender = false;
+---
+
+<AdminLayout title="Contact Submissions">
+  <div>
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Contact Form Submissions</h1>
+    <div id="contacts-list"></div>
+  </div>
+
+  <script>
+    import { supabase } from '../../lib/supabase';
+
+    async function loadContacts() {
+      const { data } = await supabase
+        .from('contact_submissions')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      const container = document.getElementById('contacts-list')!;
+      container.innerHTML = `
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Subject</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              ${data?.map(contact => `
+                <tr class="cursor-pointer hover:bg-gray-50" onclick="showContact('${contact.id}')">
+                  <td class="px-6 py-4">${contact.name}</td>
+                  <td class="px-6 py-4">${contact.email}</td>
+                  <td class="px-6 py-4">${contact.subject}</td>
+                  <td class="px-6 py-4 text-sm text-gray-500">${new Date(contact.created_at).toLocaleDateString()}</td>
+                  <td class="px-6 py-4">
+                    <span class="px-2 py-1 text-xs rounded ${contact.is_read ? 'bg-gray-100 text-gray-800' : 'bg-blue-100 text-blue-800'}">
+                      ${contact.is_read ? 'Read' : 'Unread'}
+                    </span>
+                  </td>
+                </tr>
+              `).join('') || '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">No submissions yet</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    window.showContact = async (id) => {
+      const { data } = await supabase
+        .from('contact_submissions')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (data) {
+        await supabase
+          .from('contact_submissions')
+          .update({ is_read: true })
+          .eq('id', id);
+
+        alert(`
+From: ${data.name} (${data.email})
+Company: ${data.company || 'N/A'}
+Subject: ${data.subject}
+
+Message:
+${data.message}
+        `);
+        loadContacts();
+      }
+    };
+
+    loadContacts();
+  </script>
+</AdminLayout>

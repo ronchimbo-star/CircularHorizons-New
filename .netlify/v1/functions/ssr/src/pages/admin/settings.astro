@@ -1,0 +1,13 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import SettingsManager from '../../components/admin/SettingsManager';
+
+export const prerender = false;
+---
+
+<AdminLayout title="Site Settings">
+  <div>
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Site Settings</h1>
+    <SettingsManager client:load />
+  </div>
+</AdminLayout>

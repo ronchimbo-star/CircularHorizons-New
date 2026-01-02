@@ -1,0 +1,70 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+export const prerender = false;
+---
+
+<AdminLayout title="Media Library">
+  <div>
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Media Library</h1>
+
+    <div class="mb-6 bg-white rounded-lg shadow p-6">
+      <h2 class="text-lg font-bold mb-4">Add New Media</h2>
+      <form id="upload-form" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">File URL</label>
+          <input type="url" id="url" required class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="https://example.com/image.png" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Filename</label>
+          <input type="text" id="filename" required class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Alt Text</label>
+          <input type="text" id="alt_text" class="w-full px-3 py-2 border border-gray-300 rounded-md" />
+        </div>
+        <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90">Add Media</button>
+      </form>
+    </div>
+
+    <div id="media-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+  </div>
+
+  <script>
+    import { supabase } from '../../lib/supabase';
+
+    async function loadMedia() {
+      const { data } = await supabase
+        .from('media')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      const grid = document.getElementById('media-grid')!;
+      grid.innerHTML = data?.map(item => `
+        <div class="bg-white rounded-lg shadow p-4">
+          <img src="${item.url}" alt="${item.alt_text || item.filename}" class="w-full h-32 object-cover rounded mb-2" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%23ddd%22 width=%22100%22 height=%22100%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22>No Image</text></svg>'" />
+          <p class="text-sm font-medium truncate">${item.filename}</p>
+          <input type="text" value="${item.url}" readonly onclick="this.select();document.execCommand('copy')" class="w-full mt-2 px-2 py-1 text-xs border rounded cursor-pointer" title="Click to copy" />
+        </div>
+      `).join('') || '<p class="col-span-full text-center text-gray-500">No media yet</p>';
+    }
+
+    document.getElementById('upload-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const { error } = await supabase.from('media').insert([{
+        url: document.getElementById('url').value,
+        filename: document.getElementById('filename').value,
+        alt_text: document.getElementById('alt_text').value,
+        mime_type: 'image/png'
+      }]);
+
+      if (!error) {
+        document.getElementById('upload-form').reset();
+        loadMedia();
+      }
+    });
+
+    loadMedia();
+  </script>
+</AdminLayout>
