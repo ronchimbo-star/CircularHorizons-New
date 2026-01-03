@@ -1,5 +1,5 @@
 [build]
-command = "npx astro build"
+command = "npx astro build --config=astro.config.netlify.mjs"
 publish = "dist"
 
 [[redirects]]
