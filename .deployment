@@ -1,0 +1,8 @@
+{
+  "adapter": "node",
+  "version": "0.0.2",
+  "timestamp": "2026-01-03T14:30:00Z",
+  "buildCommand": "npm run build",
+  "startCommand": "npm start",
+  "forceRedeploy": true
+}
