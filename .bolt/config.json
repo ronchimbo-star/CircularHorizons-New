@@ -1,8 +1,8 @@
 {
-  "deploymentTarget": "node",
+  "platform": "node",
   "buildCommand": "npm run build",
   "startCommand": "npm start",
   "outputDirectory": "dist",
-  "framework": "astro",
-  "nodeVersion": "18"
+  "nodeVersion": "18",
+  "installCommand": "npm ci"
 }
