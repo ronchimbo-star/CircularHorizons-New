@@ -1,8 +1,9 @@
 {
   "adapter": "node",
-  "version": "0.0.5",
-  "timestamp": "2026-02-19T19:44:00Z",
+  "version": "0.0.6",
+  "timestamp": "2026-02-19T20:21:00Z",
   "buildCommand": "npm run build",
   "startCommand": "npm start",
-  "forceRedeploy": true
+  "forceRedeploy": true,
+  "changes": "Fixed server startup to use Astro's built-in standalone mode with proper environment variable handling"
 }
