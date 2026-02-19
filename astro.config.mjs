@@ -9,4 +9,9 @@ export default defineConfig({
   integrations: [tailwind(), react()],
   output: 'server',
   adapter: node({ mode: 'standalone' }),
+  server: {
+    port: 4321,
+    host: true
+  },
+  trailingSlash: 'ignore',
 });

@@ -1,8 +1,10 @@
 {
   "adapter": "node",
-  "version": "0.0.2",
-  "timestamp": "2026-01-03T14:30:00Z",
+  "version": "0.0.3",
+  "timestamp": "2026-02-19T19:18:00Z",
   "buildCommand": "npm run build",
   "startCommand": "npm start",
-  "forceRedeploy": true
+  "forceRedeploy": true,
+  "port": 4321,
+  "host": "0.0.0.0"
 }
