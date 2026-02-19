@@ -4,9 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: 'hsl(142, 47%, 33%)',
-        secondary: 'hsl(206, 56%, 25%)',
-        accent: 'hsl(48, 66%, 59%)',
+        primary: '#ea6214', // BRICSwise orange
+        secondary: '#e9af0d', // BRICSwise gold
+        accent: '#94c021', // BRICSwise green
+        'accent-cyan': '#00ffff', // BRICSwise cyan
+        'accent-pink': '#c10966', // BRICSwise magenta
       },
     },
   },

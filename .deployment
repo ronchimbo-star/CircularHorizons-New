@@ -1,9 +1,9 @@
 {
   "adapter": "node",
-  "version": "0.0.6",
-  "timestamp": "2026-02-19T20:21:00Z",
+  "version": "0.0.7",
+  "timestamp": "2026-02-19T20:30:00Z",
   "buildCommand": "npm run build",
   "startCommand": "npm start",
   "forceRedeploy": true,
-  "changes": "Fixed server startup to use Astro's built-in standalone mode with proper environment variable handling"
+  "changes": "Updated branding to BRICSwise with new logo and color scheme (orange #ea6214, gold #e9af0d, green #94c021)"
 }
