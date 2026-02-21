@@ -1,9 +1,9 @@
 {
   "adapter": "node",
-  "version": "0.0.8",
-  "timestamp": "2026-02-21T07:50:00Z",
+  "version": "0.0.9",
+  "timestamp": "2026-02-21T07:54:00Z",
   "buildCommand": "npm run build",
-  "startCommand": "npm start",
+  "startCommand": "node server.js",
   "forceRedeploy": true,
-  "changes": "Updated header background to match footer (bg-gray-900), changed branding from BRICSwise to Circular Horizons, updated all logos to use bricswise-icon.svg"
+  "changes": "Fixed 404 error - rebuilt project and started server successfully. Server now running on port 4321."
 }
