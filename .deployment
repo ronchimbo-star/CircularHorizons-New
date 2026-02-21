@@ -1,9 +1,10 @@
 {
   "adapter": "node",
-  "version": "0.0.9",
-  "timestamp": "2026-02-21T07:54:00Z",
+  "version": "0.1.0",
+  "timestamp": "2026-02-21T08:00:00Z",
   "buildCommand": "npm run build",
   "startCommand": "node server.js",
   "forceRedeploy": true,
-  "changes": "Fixed 404 error - rebuilt project and started server successfully. Server now running on port 4321."
+  "changes": "Complete rebuild and server restart. All routes verified working (/, /contact, /news, /admin/login all return 200). All assets loading correctly including bricswise-icon.svg. Server running on port 4321.",
+  "status": "ready"
 }
