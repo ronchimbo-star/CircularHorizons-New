@@ -52,21 +52,6 @@ export const prerender = false;
       </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow p-6 mt-8">
-      <h2 class="text-xl font-bold text-gray-900 mb-4">Tools</h2>
-      <div class="flex flex-col gap-4">
-        <button
-          id="download-screenshots-btn"
-          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-          </svg>
-          <span id="screenshot-btn-text">Download Public Page Screenshots</span>
-        </button>
-        <div id="screenshot-status" class="text-sm text-gray-600 hidden"></div>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -97,71 +82,6 @@ export const prerender = false;
       document.getElementById('contacts-count')!.textContent = contactsCount?.toString() || '0';
     }
 
-    async function generateScreenshots() {
-      const btn = document.getElementById('download-screenshots-btn') as HTMLButtonElement;
-      const btnText = document.getElementById('screenshot-btn-text')!;
-      const status = document.getElementById('screenshot-status')!;
-
-      btn.disabled = true;
-      btnText.textContent = 'Generating screenshots...';
-      status.textContent = 'This may take a minute. Please wait...';
-      status.classList.remove('hidden', 'text-red-600');
-      status.classList.add('text-blue-600');
-
-      try {
-        const { data: pages } = await supabase
-          .from('pages')
-          .select('slug')
-          .eq('is_published', true);
-
-        const pagePaths = [
-          '/',
-          '/contact',
-          '/news',
-          ...(pages?.map((p: any) => `/${p.slug}`) || [])
-        ];
-
-        const response = await fetch('/api/generate-screenshots', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ pages: pagePaths })
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to generate screenshots');
-        }
-
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `bricswise-screenshots-${Date.now()}.zip`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-
-        status.textContent = 'Screenshots downloaded successfully!';
-        status.classList.remove('text-blue-600');
-        status.classList.add('text-green-600');
-
-      } catch (error) {
-        console.error('Screenshot error:', error);
-        status.textContent = 'Failed to generate screenshots. Please try again.';
-        status.classList.remove('text-blue-600');
-        status.classList.add('text-red-600');
-      } finally {
-        btn.disabled = false;
-        btnText.textContent = 'Download Public Page Screenshots';
-        setTimeout(() => {
-          status.classList.add('hidden');
-        }, 5000);
-      }
-    }
-
-    document.getElementById('download-screenshots-btn')?.addEventListener('click', generateScreenshots);
 
     loadStats();
   </script>
