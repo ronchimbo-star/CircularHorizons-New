@@ -1,9 +1,9 @@
 {
   "adapter": "node",
-  "version": "0.0.7",
-  "timestamp": "2026-02-19T20:30:00Z",
+  "version": "0.0.8",
+  "timestamp": "2026-02-21T07:50:00Z",
   "buildCommand": "npm run build",
   "startCommand": "npm start",
   "forceRedeploy": true,
-  "changes": "Updated branding to BRICSwise with new logo and color scheme (orange #ea6214, gold #e9af0d, green #94c021)"
+  "changes": "Updated header background to match footer (bg-gray-900), changed branding from BRICSwise to Circular Horizons, updated all logos to use bricswise-icon.svg"
 }

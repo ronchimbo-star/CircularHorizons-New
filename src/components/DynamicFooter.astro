@@ -11,11 +11,9 @@ const settingsMap = settings?.reduce((acc, s) => ({ ...acc, [s.key]: s.value }),
       <div class="col-span-1 md:col-span-2">
         <div class="flex items-center mb-4">
           {settingsMap.footer_logo ? (
-            <img src={settingsMap.footer_logo} alt={settingsMap.site_title || 'Circular Horizons'} class="h-8 w-auto mr-2" />
+            <img src={settingsMap.footer_logo} alt={settingsMap.site_title || 'Circular Horizons'} class="h-10 w-auto mr-3" />
           ) : (
-            <svg class="h-8 w-8 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7v10c0 5.5 4.5 10 10 10s10-4.5 10-10V7L12 2z M12 22V2"></path>
-            </svg>
+            <img src="/bricswise-icon.svg" alt="Circular Horizons" class="h-10 w-auto mr-3" />
           )}
           <span class="text-xl font-bold">{settingsMap.site_title || 'Circular Horizons'}</span>
         </div>
